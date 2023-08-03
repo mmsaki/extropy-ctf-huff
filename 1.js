@@ -3,12 +3,12 @@ const path = require('path');
 const fs = require('fs');
 dotenv.config();
 var Web3 = require('web3').Web3;
-const { PRIVATE_KEY, API_KEY, SOLUTION_0 } = process.env;
+const { PRIVATE_KEY, API_KEY, SOLUTION_1 } = process.env;
 const web3 = new Web3(`https://eth-goerli.g.alchemy.com/v2/${API_KEY}`);
 
-var bytecode = SOLUTION_0;
-var solution = '0';
-var abi = require(`./${solution}.json`);
+var bytecode = SOLUTION_1;
+var solution = '1';
+var abi = require(`./abi/${solution}.json`);
 
 // Second step: add an account to wallet
 var account = web3.eth.wallet.add('0x' + PRIVATE_KEY);
