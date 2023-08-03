@@ -1,0 +1,31 @@
+[
+	{
+		"inputs": [
+			{
+				"internalType": "bytes",
+				"name": "packed",
+				"type": "bytes"
+			}
+		],
+		"name": "solution",
+		"outputs": [
+			{
+				"internalType": "uint8",
+				"name": "a",
+				"type": "uint8"
+			},
+			{
+				"internalType": "bool",
+				"name": "b",
+				"type": "bool"
+			},
+			{
+				"internalType": "bytes1",
+				"name": "c",
+				"type": "bytes1"
+			}
+		],
+		"stateMutability": "pure",
+		"type": "function"
+	}
+]
