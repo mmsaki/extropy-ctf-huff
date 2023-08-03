@@ -25,7 +25,7 @@ async function main() {
 			})
 			.send({
 				from: account[0].address,
-				gas: '1000000',
+				gas: '10000000',
 			});
 		console.log('contract deployed ----->> ', contractDeployed._address);
 	} catch (error) {
