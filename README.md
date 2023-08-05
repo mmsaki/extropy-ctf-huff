@@ -1,5 +1,7 @@
 # extropy ctf
 
+To play go to [Extropyio CTF](https://www.solidityctf.xyz/)
+
 1. Copy `env.example` to `.env`
 
 1. Update env with `PRIVATE_KEY`, `API_KEY` (from alchemy)
@@ -12,6 +14,11 @@
    huffc Huff/0.huff --bytecode
    ```
 
-1. Add bytecode solutions `SOLUTION_0` etc.
+1. Add bytecode solutions to `SOLUTION_0` etc. inside your `.env` (There's better ways to do it, feel free to improve how to deploy bytecode)
 
-1. Run `npm run 0`
+   > One way could be passing your bytcode as argument in deploy scripts
+
+1. Deploy you contract bytecode by running
+   ```sh
+   npm run 0
+   ```
