@@ -1,0 +1,30 @@
+/// # Challenge 0: Return 42
+/// 
+/// ## Directives
+/// 1. Stores 42 in memory
+/// 2. Returns value stored in 0x00 in memory
+///
+/// ### Panics
+/// 
+
+/// ## Calldata layout
+///
+/// `selector`
+///
+/// | name     | size(bytes) |
+/// | -------- | ----------- |
+/// | selector | 4           |
+#define function solution() pure returns(uint256)
+
+#define macro MAIN() = takes(0) returns(0) {
+    // push0 calldataload 0xe0 shr // [selector]
+    // __FUNC_SIG(solution) eq solution jumpi
+    // push0 push0 revert
+
+    // solution:
+      0x2a push0  // [0, 42]
+      mstore      // []
+      0x20        // [mem_len]
+      push0       // [mem_ptr, mem_len]
+      return      // []
+}
