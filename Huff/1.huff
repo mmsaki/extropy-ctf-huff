@@ -1,0 +1,61 @@
+/// # Challenge 1: Matrix addition
+/// 
+/// ## Directives
+/// 1. Adds 1st items of x and y, then stores in memory at 0x00
+/// 2. Adds 2nd items of x and y, then stores in memory at 0x20
+/// 3. Adds 3rd items of x and y, then stores in memory at 0x40
+/// 4. Adds 4th items of x and y, then stores in memory at 0x60
+/// 5. Returns memory items from 0x00 - 0x80, 
+
+/// ## Calldata layout
+/// 
+/// `selector`
+/// 
+/// | name     | size (bytes) |
+/// | -------- | ------------ | 
+/// | selector | 4            |
+/// | x[0][0]  | 32           |
+/// | x[0][1]  | 32           |
+/// | x[1][0]  | 32           |
+/// | x[1][1]  | 32           |
+/// | y[0][0]  | 32           |
+/// | y[0][1]  | 32           |
+/// | y[1][0]  | 32           |
+/// | y[1][1]  | 32           |
+#define function solution(uint256[2][2] calldata x, uint256[2][2] calldata y) pure returns (uint256[2][2] memory)
+
+#define macro MAIN() = takes(0) returns(0) {
+    // push0 calldataload 0xe0 shr // [selector]
+
+    // __FUNC_SIG(solution) eq solution jumpi
+    // push0 push0 revert
+      
+    // solution:
+      // top left
+      0x04 calldataload  // [x0.0]
+      0x84 calldataload  // [y0.0, x0.0]
+      add                // [res0.0]
+      push0 mstore       // []
+
+      // top right
+      0x24 calldataload  // [x0.1]
+      0xa4 calldataload  // [y0.1, x0.1]
+      add                // [res0.1]                 
+      0x20 mstore        // []
+
+      // bottom left
+      0x44 calldataload  // [x1.0]
+      0xc4 calldataload  // [y1.0, x1.0]
+      add                // [res1.0]
+      0x40 mstore        // []
+
+      // bottom right
+      0x64 calldataload  // [x1.1]
+      0xe4 calldataload  // [y1.1, x1.1]
+      add                // [res1.1]
+      0x60 mstore        // []
+
+      0x80               // [mem_len]
+      push0              // [mem_ptr, mem_len]
+      return             // [] 
+}
