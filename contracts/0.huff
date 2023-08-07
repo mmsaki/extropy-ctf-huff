@@ -14,7 +14,7 @@
 /// | name     | size(bytes) | offset |
 /// | -------- | ----------- | ------ |
 /// | selector | 4           | 0x00   |
-#define function solution() pure returns(uint256)
+#define function solution() pure returns(uint8)
 
 #define macro MAIN() = takes(0) returns(0) {
     push0                 // [offset]

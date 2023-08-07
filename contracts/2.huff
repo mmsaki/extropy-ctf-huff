@@ -37,11 +37,11 @@
 #define function solution(uint256[10] calldata unsortedArray) view returns (uint256[10] memory)
 
 #define macro MAIN() = takes(0) returns(0) {
-  // push0                 // [offset]
-  // calldataload 0xe0 shr // [selector] 
-  // __FUNC_SIG(solution)  // [solution_selc, selector]
-  // eq start jumpi        // [solution_dest, truthy]
-  // push0 push0 revert    // []
+  push0                 // [offset]
+  calldataload 0xe0 shr // [selector] 
+  __FUNC_SIG(solution)  // [solution_selc, selector]
+  eq start jumpi        // [solution_dest, truthy]
+  push0 push0 revert    // []
 
   start:
     0x04 0x24     // [next_ptr, curr_ptr]
