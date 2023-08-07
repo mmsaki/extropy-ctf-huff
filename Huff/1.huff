@@ -8,7 +8,7 @@
 /// 5. Returns memory items from 0x00 - 0x80, 
 ///
 /// ### Panics
-/// - Reverts if selector is not equal to `0x5f3fa56b`
+/// + Reverts if selector is not equal to `0x5f3fa56b`
 
 /// ## Calldata layout
 /// 
