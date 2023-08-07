@@ -5,7 +5,7 @@
 /// 2. Returns value stored in 0x00 in memory
 ///
 /// ### Panics
-/// 
+/// + Reverts if selector is not equal to `0x4fb60251`
 
 /// ## Calldata layout
 ///
@@ -17,14 +17,16 @@
 #define function solution() pure returns(uint256)
 
 #define macro MAIN() = takes(0) returns(0) {
-    // push0 calldataload 0xe0 shr // [selector]
-    // __FUNC_SIG(solution) eq solution jumpi
-    // push0 push0 revert
+    push0                 // [offset]
+    calldataload 0xe0 shr // [selector]
+    __FUNC_SIG(solution)  // [solution_sel, selector]
+    eq solution jumpi     // [solution_dest,  truthy]
+    push0 push0 revert    // []
 
-    // solution:
-      0x2a push0  // [0, 42]
-      mstore      // []
-      0x20        // [mem_len]
-      push0       // [mem_ptr, mem_len]
-      return      // []
+    solution:
+      0x2a push0          // [0, 42]
+      mstore              // []
+      0x20                // [mem_len]
+      push0               // [mem_ptr, mem_len]
+      return              // []
 }

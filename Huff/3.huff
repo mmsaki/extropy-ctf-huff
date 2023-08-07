@@ -9,6 +9,9 @@
 /// 2. Get  uint8 a, shift right by 0xf8 (8 * 31 bytes) `0xff__ --> 0x__ff`
 /// 3. Get   bool b, shift right by 0xf0 (8 * 30 bytes) `0x_ff_ --> 0x__ff`
 /// 4. Get bytes1 c, shift  left by 0x10 (8 *  2 bytes) `0x__ff --> 0xff__`
+///
+/// ### Panics
+/// - Reverts if selector is not equal to `0xce0b1238`
 
 /// ### Calldata layout
 /// 
@@ -23,12 +26,13 @@
 #define function solution(bytes memory packed) pure returns (uint8 a, bool b, bytes1 c)
 
 #define macro MAIN() = takes(0) returns(0) {
-    // push0 calldataload 0xe0 shr // [func_sig]
-
-    // __FUNC_SIG(solution) eq solution jumpi
-    // push0 push0 revert
+    push0                 // [offset]
+    calldataload 0xe0 shr // [selector]
+    __FUNC_SIG(solution)  // [solution_sel, selector]
+    eq solution jumpi     // [solution_dest, truthy]
+    push0 push0 revert    // []
       
-    // solution:
+    solution:
       0x44          // [offset]
       calldataload  // [bytes] ? value == 0xaabbcc....
       dup1 dup1     // [value, value, value]
