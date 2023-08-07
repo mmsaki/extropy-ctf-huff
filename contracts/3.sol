@@ -16,7 +16,7 @@ contract Level_3_Solution {
         assembly {
             a := shr(mul(0x08, 0x1f), calldataload(0x44))
             b := and(shr(mul(0x08, 0x1e), calldataload(0x44)), 0x00ff)
-            c := shl(mul(0x08, 0x1f), and(shr(mul(0x08, 0x1d), calldataload(0x44)), 0x0000ff))
+            c := shl(0x10, calldataload(0x44))
         }
     }
 }
