@@ -22,3 +22,12 @@ To play go to [Extropyio CTF](https://www.solidityctf.xyz/)
    ```sh
    npm run 0
    ```
+
+## Gas benchmark
+
+| level | name       | huff | yul  | solidity |
+| ----- | ---------- | ---- | ---- | -------- |
+| 0     | Return 42  | 2918 | 3039 | 3211     |
+| 1     | Matix add  | 5381 | 6097 | 7182     |
+| 2     | Sort array | 6067 | 8629 | 19017    |
+| 3     | ab.encode  | 3368 | 3960 | 4750     |
