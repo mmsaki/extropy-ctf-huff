@@ -7,7 +7,7 @@ const { PRIVATE_KEY, API_KEY, SOLUTION_2 } = process.env;
 const web3 = new Web3(`https://eth-goerli.g.alchemy.com/v2/${API_KEY}`);
 // const web3 = new Web3(`http://localhost:8545`);
 
-https: var bytecode = SOLUTION_2;
+var bytecode = SOLUTION_2;
 // var bytecode = process.argv[2];
 
 var solution = '2';
