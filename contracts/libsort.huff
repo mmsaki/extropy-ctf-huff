@@ -1,0 +1,147 @@
+//! # A library for sorting stack items
+//!
+//! Takes top unsorted stack inputs of size (n) and swaps them in ascending order
+
+#define macro TOP2() = takes(2) returns(2) {
+  // Takes:       //              [arg1, arg0]
+  dup2 dup2       //  [arg1, arg0, arg1, arg0]
+  // arg1 < arg0
+  lt loop jumpi   //  [loop, bool, arg1, arg0]
+  swap1           //              [arg0, arg1]
+}
+
+#define macro TOP3() = takes(3) returns(3) {
+  // Takes:       //              [arg0, arg2, arg1]
+  dup3 dup3       //  [arg2, arg1, arg0, arg2, arg1]
+  // arg2 < arg1
+  lt loop jumpi   //  [loop, bool, arg0, arg2, arg1]
+  swap1           //              [arg2, arg0, arg1]
+  swap2           //              [arg1, arg0, arg2]
+  swap1           //              [arg0, arg1, arg2]
+}
+
+#define macro TOP4() = takes(4) returns(4) {
+  // Takes:       //              [arg0, arg1, arg3, arg2]
+  dup4 dup4       //  [arg3, arg2, arg0, arg1, arg3, arg2]
+  // arg3 < arg2
+  lt loop jumpi   //  [loop, bool, arg0, arg1, arg3, arg2]
+  swap1           //              [arg1, arg0, arg3, arg2]
+  swap2           //              [arg3, arg0, arg1, arg2]
+  swap3           //              [arg2, arg0, arg1, arg3]
+  swap2           //              [arg1, arg0, arg2, arg3]
+  swap1           //              [arg0, arg1, arg2, arg3]
+}
+
+#define macro TOP5() = takes(5) returns(5) {
+  // Takes:       //              [arg0, arg1, arg2, arg4, arg3]
+  dup5 dup5       //  [arg4, arg3, arg0, arg1, arg2, arg4, arg3]
+  // arg4 < arg3
+  lt loop jumpi   //  [loop, bool, arg0, arg1, arg2, arg4, arg3]
+  swap1           //              [arg1, arg0, arg2, arg4, arg3]
+  swap2           //              [arg2, arg0, arg1, arg4, arg3]
+  swap3           //              [arg4, arg0, arg1, arg2, arg3]
+  swap4           //              [arg3, arg0, arg1, arg2, arg4]
+  swap3           //              [arg2, arg0, arg1, arg3, arg4]
+  swap2           //              [arg1, arg0, arg2, arg3, arg4]
+  swap1           //              [arg0, arg1, arg2, arg3, arg4]
+}
+
+#define macro TOP6() = takes(6) returns(6) {
+  // Takes:       //              [arg0, arg1, arg2, arg3, arg5, arg4]
+  dup6 dup6       //  [arg5, arg4, arg0, arg1, arg2, arg3, arg5, arg4]
+  // arg5 < arg4
+  lt loop jumpi   //  [loop, bool, arg0, arg1, arg2, arg3, arg5, arg4]
+  swap1           //              [arg1, arg0, arg2, arg3, arg5, arg4]
+  swap2           //              [arg2, arg0, arg1, arg3, arg5, arg4]
+  swap3           //              [arg3, arg0, arg1, arg2, arg5, arg4]
+  swap4           //              [arg5, arg0, arg1, arg2, arg3, arg4]
+  swap5           //              [arg4, arg0, arg1, arg2, arg3, arg5]
+  swap4           //              [arg3, arg0, arg1, arg2, arg4, arg5]
+  swap3           //              [arg2, arg0, arg1, arg3, arg4, arg5]
+  swap2           //              [arg1, arg0, arg2, arg3, arg4, arg5]
+  swap1           //              [arg0, arg1, arg2, arg3, arg4, arg5]
+}
+
+#define macro TOP7() = takes(7) returns(7) {
+  // Takes:       //              [arg0, arg1, arg2, arg3, arg4, arg6, arg5]
+  dup7 dup7       //  [arg5, arg5, arg0, arg1, arg2, arg3, arg4, arg6, arg5]
+  // arg6 < arg5
+  lt loop jumpi   //  [loop, bool, arg0, arg1, arg2, arg3, arg4, arg6, arg6]
+  swap1           //              [arg1, arg0, arg2, arg3, arg4, arg6, arg5]
+  swap2           //              [arg1, arg0, arg1, arg3, arg4, arg6, arg5]
+  swap3           //              [arg3, arg0, arg1, arg2, arg4, arg6, arg5]
+  swap4           //              [arg4, arg0, arg1, arg2, arg3, arg6, arg5]
+  swap5           //              [arg6, arg0, arg1, arg2, arg3, arg4, arg5]
+  swap6           //              [arg5, arg0, arg1, arg2, arg3, arg4, arg6]
+  swap5           //              [arg4, arg0, arg1, arg2, arg3, arg5, arg6]
+  swap4           //              [arg3, arg0, arg1, arg2, arg4, arg5, arg6]
+  swap3           //              [arg2, arg0, arg1, arg3, arg4, arg5, arg6]
+  swap2           //              [arg1, arg0, arg2, arg3, arg4, arg5, arg6]
+  swap1           //              [arg0, arg1, arg2, arg3, arg4, arg5, arg6]
+}
+
+#define macro TOP8() = takes(8) returns(8) {
+  // Takes:       //              [arg0, arg1, arg2, arg3, arg4, arg5, arg7, arg6]
+  dup8 dup8       //  [arg7, arg6, arg0, arg1, arg2, arg3, arg4, arg5, arg7, arg6]
+  // arg7 < arg6
+  lt loop jumpi   //  [loop, bool, arg0, arg1, arg2, arg3, arg4, arg5, arg7, arg6]
+  swap1           //              [arg1, arg0, arg2, arg3, arg4, arg5, arg7, arg6]
+  swap2           //              [arg2, arg0, arg1, arg3, arg4, arg5, arg7, arg6]
+  swap3           //              [arg3, arg0, arg1, arg2, arg4, arg5, arg7, arg6]
+  swap4           //              [arg4, arg0, arg1, arg2, arg3, arg5, arg7, arg6]
+  swap5           //              [arg5, arg0, arg1, arg2, arg3, arg4, arg7, arg6]
+  swap6           //              [arg7, arg0, arg1, arg2, arg3, arg4, arg5, arg6]
+  swap7           //              [arg6, arg0, arg1, arg2, arg3, arg4, arg5, arg7]
+  swap6           //              [arg5, arg0, arg1, arg2, arg3, arg4, arg6, arg7]
+  swap5           //              [arg4, arg0, arg1, arg2, arg3, arg5, arg6, arg7]
+  swap4           //              [arg3, arg0, arg1, arg2, arg4, arg5, arg6, arg7]
+  swap3           //              [arg2, arg0, arg1, arg3, arg4, arg5, arg6, arg7]
+  swap2           //              [arg1, arg0, arg2, arg3, arg4, arg5, arg6, arg7] 
+  swap1           //              [arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7]
+}
+
+#define macro TOP9() = takes(9) returns(9) {
+  // Takes:       //              [arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg8, arg7]
+  dup9 dup9       //  [arg8, arg7, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg8, arg7]
+  // arg7 < arg6
+  lt loop jumpi   //  [loop, bool, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg8, arg7]
+  swap1           //              [arg1, arg0, arg2, arg3, arg4, arg5, arg6, arg8, arg7]
+  swap2           //              [arg2, arg0, arg1, arg3, arg4, arg5, arg6, arg8, arg7]
+  swap3           //              [arg3, arg0, arg1, arg2, arg4, arg5, arg6, arg8, arg7]
+  swap4           //              [arg4, arg0, arg1, arg2, arg3, arg5, arg6, arg8, arg7]
+  swap5           //              [arg5, arg0, arg1, arg2, arg3, arg4, arg6, arg8, arg7]
+  swap6           //              [arg6, arg0, arg1, arg2, arg3, arg4, arg5, arg8, arg7]
+  swap7           //              [arg8, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7]
+  swap8           //              [arg7, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg8]
+  swap7           //              [arg6, arg0, arg1, arg2, arg3, arg4, arg5, arg7, arg8]
+  swap6           //              [arg5, arg0, arg1, arg2, arg3, arg4, arg6, arg7, arg8]
+  swap5           //              [arg4, arg0, arg1, arg2, arg3, arg5, arg6, arg7, arg8]
+  swap4           //              [arg3, arg0, arg1, arg2, arg4, arg5, arg6, arg7, arg8]
+  swap3           //              [arg2, arg0, arg1, arg3, arg4, arg5, arg6, arg7, arg8]
+  swap2           //              [arg1, arg0, arg2, arg3, arg4, arg5, arg6, arg7, arg8]
+  swap1           //              [arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8]
+}
+
+#define macro TOP10() = takes(10) returns(10) {
+  // Takes:       //              [arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg9, arg8]
+  dup10 dup10     //  [arg9, arg8, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg9, arg8]
+  // arg7 < arg6
+  lt loop jumpi   //  [loop, bool, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg9, arg8]
+  swap1           //              [arg1, arg0, arg2, arg3, arg4, arg5, arg6, arg7, arg9, arg8]
+  swap2           //              [arg2, arg0, arg1, arg3, arg4, arg5, arg6, arg7, arg9, arg8]
+  swap3           //              [arg3, arg0, arg1, arg2, arg4, arg5, arg6, arg7, arg9, arg8]
+  swap4           //              [arg4, arg0, arg1, arg2, arg3, arg5, arg6, arg7, arg9, arg8]
+  swap5           //              [arg5, arg0, arg1, arg2, arg3, arg4, arg6, arg7, arg9, arg8]
+  swap6           //              [arg6, arg0, arg1, arg2, arg3, arg4, arg5, arg7, arg9, arg8]
+  swap7           //              [arg7, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg9, arg8]
+  swap8           //              [arg9, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8]
+  swap9           //              [arg8, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg9]
+  swap8           //              [arg7, arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg8, arg9]
+  swap7           //              [arg6, arg0, arg1, arg2, arg3, arg4, arg5, arg7, arg8, arg9]
+  swap6           //              [arg5, arg0, arg1, arg2, arg3, arg4, arg6, arg7, arg8, arg9]
+  swap5           //              [arg4, arg0, arg1, arg2, arg3, arg5, arg6, arg7, arg8, arg9]
+  swap4           //              [arg3, arg0, arg1, arg2, arg4, arg5, arg6, arg7, arg8, arg9]
+  swap3           //              [arg2, arg0, arg1, arg3, arg4, arg5, arg6, arg7, arg8, arg9]
+  swap2           //              [arg1, arg0, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]
+  swap1           //              [arg0, arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9]
+}
